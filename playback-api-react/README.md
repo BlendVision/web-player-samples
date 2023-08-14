@@ -17,6 +17,8 @@ If you are not using BV One player SDK, please refer to this guide](https://supp
 - Clone this repository
 - Install dependencies: `yarn` or `npm install`
 - Specify API host by `API_HOST` variable of `src/getStreamManifestUrs.js`
+  - To try with BV One playback API, please use `https://api.one.blendvision.com/bv`
+  - For your own streaming backend, use your streaming API endpoint like `https://my-streaming-backend.com/api/v1`
 - Replace `apiKey`, `origId`, you may create one in the console https://app.one.blendvision.com/en/developers/api-token
 - Replace `resourceType`, `resourceId`, these can be found in the publish VOD dialog
 - Start development server: `yarn dev` or `npm run dev`
