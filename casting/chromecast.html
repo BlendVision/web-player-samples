@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://assets-global.website-files.com/63c799a4fa41261ff1f92fd4/64213c94885ad9858a1c2c2b_01-favicon%20(1).png" rel="shortcut icon" type="image/x-icon"/>
+  <link href="https://assets-global.website-files.com/63c799a4fa41261ff1f92fd4/64213c9730d27c215422b7f9_01-favicon%20(2).png" rel="apple-touch-icon"/>
+  <title>BlendVision One Web Player Samples | Chromecast</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    html, body {
+      margin: 0;
+      font-size: '16px';
+    }
+    #my-player { 
+      height: 100vh;
+    }
+    .on-device #my-player { 
+      height: calc(100vh - 50px);
+    }
+    @media screen and (orientation: portrait) {
+      .device-ios #my-player { 
+        height: calc(100vh - 114px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id='my-player'></div>
+  <script src="https://unpkg.com/@blendvision/player@2.10.0"></script>
+  <script>
+    const config = {
+        license: 'YOUR BV PLAYER LICENSE KEY',
+        title: "BlendVision One Web Player Samples | Chrome cast",
+        ui: { uiMode: "embedded" },
+        source: [
+            {
+                type: "application/dash+xml",
+                src: "YOUR DASH SOURCE",
+            },
+            {
+                type: "application/x-mpegurl",
+                src: "YOUR HLS SOURCE",
+            },
+        ],
+        castReceiverAppId: "YOUR RECEIVER APPLICATION ID",
+    };
+
+    const BvPlayer = BlendVision.default;
+    const player = BvPlayer("my-player", config);
+  </script>
+</body>
+</html>
