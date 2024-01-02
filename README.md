@@ -11,3 +11,7 @@ Demonstrates how to integrate with BlendVision One Playback API in a React app.
 **[audio](audio/)**
 
 Demonstrates how to integrate with BlendVision One Playback API in audio streaming.
+
+**[casting](casting/)**
+
+Explains how to stream video and audio directly to device with BlendVision One Playback API.
