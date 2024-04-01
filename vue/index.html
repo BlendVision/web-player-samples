@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>BV Web Player Sample - Vue</title>
+    <script src="//unpkg.com/@blendvision/player@2.13.0"></script>
+    <script src="//unpkg.com/vue@3"></script>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        background-color: #333;
+      }
+      #my-player {
+        margin: 1.5rem;
+        height: 93dvh;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <!-- ... rest of your HTML code ... -->
+      <div id="player-wrapper">
+        <bv-player />
+      </div>
+      <!-- ... rest of your HTML code ... -->
+    </div>
+    <script>
+      const {createApp, ref, onMounted, onUnmounted} = Vue
+
+      const Player = {
+        template: '<div id="my-player"></div>',
+        setup() {
+          const playerRef = ref(null)
+
+          onMounted(() => {
+            playerRef.value = BlendVision.createPlayer('#my-player', {
+              // license is optional in local development, ensure to add it for production
+              // license: 'YOUR BV PLAYER LICENSE KEY',
+              title: 'BlendVision One',
+              source: [
+                {
+                  type: 'application/dash+xml',
+                  src: 'https://d2mxta927rohme.cloudfront.net/376c618f-b27a-4a3d-9457-ad7076ee87e3/vod/dea931c3-8766-477d-a87b-1c3f91490139/vod/dash.mpd',
+                },
+                {
+                  type: 'application/x-mpegurl',
+                  src: 'https://d2mxta927rohme.cloudfront.net/376c618f-b27a-4a3d-9457-ad7076ee87e3/vod/dea931c3-8766-477d-a87b-1c3f91490139/vod/hls.m3u8',
+                },
+              ],
+            })
+          })
+
+          onUnmounted(() => {
+            if (playerRef.value != null) {
+              playerRef.value.release()
+              playerRef.value = null
+            }
+          })
+
+          return {playerRef}
+        },
+      }
+
+      createApp({
+        components: {
+          'bv-player': Player,
+        },
+      }).mount('#app')
+    </script>
+  </body>
+</html>
