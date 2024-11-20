@@ -1,4 +1,4 @@
-const API_HOST = ''
+const API_HOST = 'https://api.one.blendvision.com/bv'
 
 const uuidv4 = () =>
   '10000000-1000-4000-8000-100000000000'.replace(/[018]/g, c =>
@@ -9,17 +9,32 @@ const uuidv4 = () =>
   )
 
 const getStreamManifestUrls = async ({
-  apiKey,
+  email,
+  password,
   orgId,
   resourceType,
   resourceId,
 }) => {
   // error handling is omitted for simplicity
+  const {access_token: accessToken} = await fetch(`${API_HOST}/account/v1/accounts/login`, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({email, password}),
+  }).then(response => response.json())
+
+  const {token: apiToken} = await fetch(`${API_HOST}/account/v1/accounts/api-token`, {
+    method: 'POST',
+    headers: {
+      "Authorization": `Bearer ${accessToken}`,
+    },
+    body: JSON.stringify({name: 'My API Token'}),
+  }).then(response => response.json())
+
   const {token: playbackToken} = await fetch(`${API_HOST}/cms/v1/tokens`, {
     method: 'POST',
     headers: {
       'x-bv-org-id': orgId,
-      authorization: `Bearer ${apiKey}`,
+      authorization: `Bearer ${apiToken}`,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
@@ -38,7 +53,6 @@ const getStreamManifestUrls = async ({
     `${API_HOST}/playback/v1/sessions/${deviceId}`,
     {headers}
   ).then(res => res.json())
-
   const {manifests} = streamInfo.sources[0]
 
   return {

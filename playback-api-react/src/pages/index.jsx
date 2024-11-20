@@ -9,7 +9,8 @@ const Home = () => {
 
   useEffect(() => {
     getStreamManifestUrls({
-      apiKey: '<api-key>',
+      email: '<email>',
+      password: '<password>',
       orgId: '<org-id>',
       resourceType: '<resource-type>',
       resourceId: '<resource-id>',
