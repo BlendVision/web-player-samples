@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BV Web Player Sample - CDN Fallback</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        background-color: #333;
+      }
+      #my-player {
+        margin: 1.5rem;
+        height: 93dvh;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="my-player"></div>
+    <script type="module">
+      // Include the following line for importing modules with fallback mechanism.
+      async function importWithFallback(a){for(let r of a)try{return await import(r)}catch(t){console.warn(`Failed to import ${r}:`,t)}console.error("All fallback imports failed.")}
+
+      // Use the function above to import the BlendVision Player with 
+      // multiple CDN options for fallback.
+      await importWithFallback([
+        'https://cdn.invalid.com/@blendvision/player@2.22.1/index.js', //<-- This will fail
+        'https://cdn.jsdelivr.net/npm/@blendvision/player@2.22.1/index.js',
+        'https://unpkg.com/@blendvision/player@2.22.1',
+      ]);
+
+      // Expect to see an error and a warning in the console for the failed import.
+      // GET https://cdn.invalid.com/@blendvision/player@2.22.1/index.js net::ERR_NAME_NOT_RESOLVED
+      // Failed to import https://cdn.invalid.com/@blendvision/player@2.22.1/index.js: TypeError: Failed to fetch dynamically imported module: https://cdn.invalid.com/@blendvision/player@2.22.1/index.js
+      
+      // Create the player.
+      const player = BlendVision.createPlayer("my-player", {
+        // licenseKey is optional in local development, ensure to add it for production
+        // licenseKey: 'YOUR BV PLAYER LICENSE KEY',
+        title: "BlendVision One",
+        source: [
+          {
+            type: "application/dash+xml",
+            src: "https://storage.googleapis.com/shaka-demo-assets/bbb-dark-truths/dash.mpd",
+          },
+          {
+            type: "application/x-mpegurl",
+            src: "https://storage.googleapis.com/shaka-demo-assets/bbb-dark-truths-hls/hls.m3u8",
+          },
+        ],
+      });
+    </script>
+  </body>
+</html>
