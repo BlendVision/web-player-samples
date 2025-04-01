@@ -1,0 +1,33 @@
+{
+  "name": "pse-sample-plainjs",
+  "version": "0.0.0-beta.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "rollup -c",
+    "build:clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@blendvision/player": "2.22.1",
+    "@blendvision/pse": "1.0.0",
+    "mux.js": "^6.3.0",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0"
+  },
+  "devDependencies": {
+    "rollup": "^4.20.0",
+    "rollup-plugin-copy": "^3.5.0",
+    "rollup-plugin-includepaths": "^0.2.4",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-replace": "^5.0.7",
+    "@rollup/plugin-commonjs": "^26.0.1",
+    "@rollup/plugin-babel": "^6.0.4",
+    "@babel/core": "^7.16.0",
+    "@babel/runtime": "^7.16.3",
+    "@babel/preset-env": "^7.16.0",
+    "@babel/preset-react": "^7.16.0",
+    "@babel/plugin-transform-runtime": "^7.16.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+    "babel-plugin-inline-import": "^3.0.0"
+  }
+}

@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://assets-global.website-files.com/63c799a4fa41261ff1f92fd4/64213c94885ad9858a1c2c2b_01-favicon%20(1).png"
+      rel="shortcut icon"
+      type="image/x-icon"
+    />
+    <link
+      href="https://assets-global.website-files.com/63c799a4fa41261ff1f92fd4/64213c9730d27c215422b7f9_01-favicon%20(2).png"
+      rel="apple-touch-icon"
+    />
+    <title>PSE Sample App: PlainJS</title>
+    <style>
+      body {
+        color: #ffffff;
+        background-color: #303030;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+      .root-container {
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: flex-end;
+        justify-content: center;
+        gap: 0.5rem;
+        height: 80vh;
+        width: 100%;
+        margin: 0 auto;
+      }
+      #player-container {
+        height: 100%;
+        width: 100%;
+      }
+      #pse-switch {
+        padding: 0.5rem 1rem;
+        background-color: #007bff;
+        color: #ffffff;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.2s ease-in;
+      }
+      #pse-switch:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="root-container">
+      <div id="player-container"></div>
+      <button id="pse-switch">PSE</button>
+    </div>
+
+    <script type="module">
+      import { initApp } from "./js/index.js";
+
+      const playerContainerId = 'player-container';
+      const enablePSEBtnId    = 'pse-switch';
+      if (document.readyState !== 'loading') {
+        initApp(playerContainerId, enablePSEBtnId);
+      } else {
+        document.addEventListener('DOMContentLoaded', () => initApp(playerContainerId, enablePSEBtnId));
+      } // End if
+    </script>
+  </body>
+</html> 
